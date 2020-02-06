@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Pohjoinen Rautatiekatu 25 - Kumpulan kampus
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <ul>
+          <li>15:53 ratikka 8</li>
+          <li>15:53 bussi 70</li>
+          <li>16:03 ratikka 8</li>
+          <li>16:03 bussi 70</li>
+        </ul>
+        <p>
+          Kumpulan kampus - Pohjoinen Rautatiekatu 25
+        </p>
+        <ul>
+          <li>15:51 ratikka 8</li>
+          <li>15:56 ratikka 6T - ratikka 1</li>
+          <li>15:59 bussi 70</li>
+          <li>16:00 ratikka 8</li>
+        </ul>
     </div>
   );
 }
