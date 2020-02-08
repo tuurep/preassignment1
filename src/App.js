@@ -3,9 +3,7 @@ import './App.css';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import Moment from 'react-moment';
-
-Moment.globalFormat = 'HH:mm';
+import moment from 'moment'
 
 const client = new ApolloClient({
   uri: 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql',
@@ -31,6 +29,7 @@ const PLAN_QUERY = gql`
       itineraries {
         startTime
         legs {
+          startTime
           mode
           route {
             shortName  
@@ -58,16 +57,16 @@ function App() {
         <ul>
           <Query query={PLAN_QUERY}>
             {({ loading, data }) => {
-              if (loading) return 'Loading...'
+              if (loading) return <p>'Loading...'</p>
               const itineraries = data.plan.itineraries
               return (
                 <div>
                   {itineraries.map(i => 
                     <div>
-                      <h3>Start time: <Moment unix>{i.startTime}</Moment></h3>
+                      <h3>Start time: {moment(i.startTime).format("HH:mm")}</h3>
                       <ul>
                         {i.legs.map(l => 
-                          <li>{l.mode} {l.from.name} - {l.to.name}</li>
+                          <li> {moment(l.startTime).format("HH:mm")} ( {l.mode} ) {l.from.name} - {l.to.name}</li>
                         )}
                       </ul>
                     </div>
