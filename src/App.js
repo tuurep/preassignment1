@@ -52,12 +52,10 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div>
-        <p>Kumpula - Eficode HQ</p>
-
-        <ul>
+        <h2>Kumpula - Eficode HQ</h2>
           <Query query={PLAN_QUERY}>
             {({ loading, data }) => {
-              if (loading) return <p>'Loading...'</p>
+              if (loading) return <p>Loading...</p>
               const itineraries = data.plan.itineraries
               return (
                 <div>
@@ -66,7 +64,13 @@ function App() {
                       <h3>Start time: {moment(i.startTime).format("HH:mm")}</h3>
                       <ul>
                         {i.legs.map(l => 
-                          <li> {moment(l.startTime).format("HH:mm")} ( {l.mode} ) {l.from.name} - {l.to.name}</li>
+                          <li> 
+                            {moment(l.startTime).format("HH:mm")} {' [ '}
+                            {l.mode} {' '}
+                            {l.mode !== 'WALK' && l.route.shortName} {' ] '}
+                            {l.from.name} {' - '}
+                            {l.to.name} {' '}
+                          </li>
                         )}
                       </ul>
                     </div>
@@ -75,7 +79,6 @@ function App() {
               )
             }}
           </Query>
-        </ul>
       </div>
     </ApolloProvider>
   );
