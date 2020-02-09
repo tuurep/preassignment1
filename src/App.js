@@ -3,8 +3,11 @@ import './App.css';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import moment from 'moment'
+import moment from 'moment';
 import { Grid, Paper } from '@material-ui/core';
+import bus_icon from './icons/bus.svg';
+import metro_icon from './icons/metro.svg';
+import tram_icon from './icons/tram.svg';
 
 const client = new ApolloClient({
   uri: 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql',
@@ -81,15 +84,28 @@ const Plan = ({ from_lat, from_lon, to_lat, to_lon }) => (
         <div>
           {itineraries.map(i => 
             <div>
-              <h3>{moment(i.startTime).format("HH:mm")}</h3>
+              <h2>{moment(i.startTime).format("HH:mm")}</h2>
               {i.legs.map(l => 
                 <div> 
                   {l.mode !== 'WALK' &&
                     <div>
-                      {moment(l.startTime).format("HH:mm")} {' [ '}
-                      {l.mode} {' '}
-                      {l.mode !== 'SUBWAY' && l.route.shortName} {'] '}
-                      {l.from.name} &#10140; {l.to.name}
+                      {l.mode === 'BUS' && 
+                        <div>
+                          <img src={bus_icon} alt="BUS" /> {' '}
+                          <font size="5.5" color="#007AC9">{l.route.shortName}</font>
+                        </div>
+                      }
+                      {l.mode === 'TRAM' && 
+                        <div>
+                          <img src={tram_icon} alt="TRAM" /> {' '}
+                          <font size="5.5" color="#00985F">{l.route.shortName}</font>
+                        </div>
+                      }
+                      {l.mode === 'SUBWAY' && <img src={metro_icon} alt="METRO" />} {' '}
+                      <div>
+                        <b>{moment(l.startTime).format("HH:mm")} </b> {' '}
+                        {l.from.name} &#10140; {l.to.name}
+                      </div>
                     </div>
                   }
                 </div>
@@ -113,7 +129,7 @@ function App() {
       <ApolloProvider client={client}>
         <Grid item sm>
           <Paper elevation={4} style={style.Paper}>
-            <h2>Kumpulan kampus  &#10140;  Eficode HQ</h2>
+            <h1>Kumpulan kampus &#10140; Eficode HQ</h1>
             <Plan
               from_lat={kumpula_coordinates.lat}
               from_lon={kumpula_coordinates.lon}
@@ -124,7 +140,7 @@ function App() {
         </Grid>
         <Grid item sm>
           <Paper elevation={4} style={style.Paper}>
-            <h2>Eficode HQ &#10140; Kumpulan kampus</h2>
+            <h1>Eficode HQ &#10140; Kumpulan kampus</h1>
             <Plan
               from_lat={eficode_coordinates.lat}
               from_lon={eficode_coordinates.lon}
