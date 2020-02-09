@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query } from 'react-apollo';
@@ -52,13 +51,11 @@ const PLAN_QUERY = gql`
 
 const style = {
   Paper: {
-    padding: 20,
-    marginTop: 10,
-    marginBottom: 10,
-    textAlign: 'center'
-  },
-
-  Grid_container: {
+    padding: 30,
+    paddingBottom: 70,
+    margin: 30,
+    textAlign: 'center',
+    backgroundColor: '#f5f5f5'
   }
 }
 
@@ -92,7 +89,7 @@ const Plan = ({ from_lat, from_lon, to_lat, to_lon }) => (
                       {moment(l.startTime).format("HH:mm")} {' [ '}
                       {l.mode} {' '}
                       {l.mode !== 'SUBWAY' && l.route.shortName} {'] '}
-                      {l.from.name} - {l.to.name}
+                      {l.from.name} &#10140; {l.to.name}
                     </div>
                   }
                 </div>
@@ -107,11 +104,16 @@ const Plan = ({ from_lat, from_lon, to_lat, to_lon }) => (
 
 function App() {
   return (
-    <Grid container direction="row" justify="center" alignItems="flex-start" spacing={10} style={style.Grid_container}>
+    <Grid container 
+      direction="row"
+      justify="space-evenly"
+      alignItems="flex-start"
+      spacing={10}
+    >
       <ApolloProvider client={client}>
         <Grid item sm>
-          <Paper elevation={3} style={style.Paper}>
-            <h2>Kumpulan kampus - Eficode HQ</h2>
+          <Paper elevation={4} style={style.Paper}>
+            <h2>Kumpulan kampus  &#10140;  Eficode HQ</h2>
             <Plan
               from_lat={kumpula_coordinates.lat}
               from_lon={kumpula_coordinates.lon}
@@ -121,8 +123,8 @@ function App() {
           </Paper>
         </Grid>
         <Grid item sm>
-          <Paper elevation={3} style={style.Paper}>
-            <h2>Eficode HQ - Kumpulan kampus</h2>
+          <Paper elevation={4} style={style.Paper}>
+            <h2>Eficode HQ &#10140; Kumpulan kampus</h2>
             <Plan
               from_lat={eficode_coordinates.lat}
               from_lon={eficode_coordinates.lon}
