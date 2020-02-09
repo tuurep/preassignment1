@@ -10,20 +10,20 @@ const client = new ApolloClient({
 })
 
 const kumpula_coordinates = {
-  lat: 60.2051,
-  lon: 24.9623
+  lat: 60.204812,
+  lon: 24.962118
 }
 
 const eficode_coordinates = {
-  lat: 60.169433,
-  lon: 24.925835
+  lat: 60.169418,
+  lon: 24.925802
 }
 
 const PLAN_QUERY = gql`
-  {
+  query Plan($from_lat: Float!, $from_lon: Float!, $to_lat: Float!, $to_lon: Float!) {
     plan(
-      from: {lat: ${kumpula_coordinates.lat}, lon: ${kumpula_coordinates.lon}}
-      to: {lat: ${eficode_coordinates.lat}, lon: ${eficode_coordinates.lon}}
+      from: {lat: $from_lat, lon: $from_lon}
+      to: {lat: $to_lat, lon: $to_lon}
       numItineraries: 6
     ) {
       itineraries {
@@ -52,8 +52,16 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div>
-        <h2>Kumpula - Eficode HQ</h2>
-          <Query query={PLAN_QUERY}>
+        <h2>Kumpulan kampus - Eficode HQ</h2>
+          <Query
+            query={PLAN_QUERY}
+            variables={{
+              from_lat: kumpula_coordinates.lat,
+              from_lon: kumpula_coordinates.lon,
+              to_lat: eficode_coordinates.lat,
+              to_lon: eficode_coordinates.lon}}
+            >
+
             {({ loading, data }) => {
               if (loading) return <p>Loading...</p>
               const itineraries = data.plan.itineraries
