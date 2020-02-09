@@ -64,13 +64,16 @@ function App() {
                       <h3>Start time: {moment(i.startTime).format("HH:mm")}</h3>
                       <ul>
                         {i.legs.map(l => 
-                          <li> 
-                            {moment(l.startTime).format("HH:mm")} {' [ '}
-                            {l.mode} {' '}
-                            {l.mode !== 'WALK' && l.route.shortName} {' ] '}
-                            {l.from.name} {' - '}
-                            {l.to.name} {' '}
-                          </li>
+                          <div> 
+                            {l.mode !== 'WALK' &&
+                              <li>
+                                {moment(l.startTime).format("HH:mm")} {' [ '}
+                                {l.mode} {' '}
+                                {l.mode !== 'SUBWAY' && l.route.shortName} {'] '}
+                                {l.from.name} - {l.to.name}
+                              </li>
+                            }
+                          </div>
                         )}
                       </ul>
                     </div>
