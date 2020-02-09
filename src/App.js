@@ -57,6 +57,7 @@ const Plan = ({ from_lat, from_lon, to_lat, to_lon }) => (
       to_lat: to_lat,
       to_lon: to_lon
     }}
+    pollInterval={500}
   >
 
     {({ loading, data }) => {
@@ -110,7 +111,7 @@ function App() {
         />
       </div>
     </ApolloProvider>
-  );
+  )
 }
 
 export default App;
