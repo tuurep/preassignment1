@@ -127,7 +127,7 @@ function App() {
       spacing={10}
     >
       <ApolloProvider client={client}>
-        <Grid item sm>
+        <Grid item md>
           <Paper elevation={4} style={style.Paper}>
             <h1>Kumpulan kampus &#10140; Eficode HQ</h1>
             <Plan
@@ -138,7 +138,7 @@ function App() {
             />
           </Paper>
         </Grid>
-        <Grid item sm>
+        <Grid item md>
           <Paper elevation={4} style={style.Paper}>
             <h1>Eficode HQ &#10140; Kumpulan kampus</h1>
             <Plan
