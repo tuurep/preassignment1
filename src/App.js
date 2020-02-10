@@ -46,18 +46,16 @@ const PLAN_QUERY = gql`
           }
         }
       endTime
-      duration
       }
     }
   }
 `
 
-const style = {
+const styles = {
   Paper: {
-    padding: 30,
+    padding: 60,
     paddingBottom: 70,
     margin: 30,
-    textAlign: 'center',
     backgroundColor: '#f5f5f5'
   }
 }
@@ -79,38 +77,48 @@ const Plan = ({ from_lat, from_lon, to_lat, to_lon }) => (
       if (error) return `Error: ${error.message}`
 
       const itineraries = data.plan.itineraries
+      itineraries.sort((a, b) => a.startTime - b.startTime)
 
       return (
         <div>
           {itineraries.map(i => 
-            <div>
-              <h2>{moment(i.startTime).format("HH:mm")}</h2>
-              {i.legs.map(l => 
-                <div> 
-                  {l.mode !== 'WALK' &&
-                    <div>
-                      {l.mode === 'BUS' && 
-                        <div>
-                          <img src={bus_icon} alt="BUS" /> {' '}
-                          <font size="5.5" color="#007AC9">{l.route.shortName}</font>
-                        </div>
-                      }
-                      {l.mode === 'TRAM' && 
-                        <div>
-                          <img src={tram_icon} alt="TRAM" /> {' '}
-                          <font size="5.5" color="#00985F">{l.route.shortName}</font>
-                        </div>
-                      }
-                      {l.mode === 'SUBWAY' && <img src={metro_icon} alt="METRO" />} {' '}
+            <Grid
+              container direction="row"
+              justify="flex-start"
+              alignItems="flex-start"  
+              spacing={6}
+            >
+              <Grid item>
+                <h2>{moment(i.startTime).format("HH:mm")}</h2>
+              </Grid>
+              <Grid item>
+                {i.legs.map(l => 
+                  <div> 
+                    {l.mode !== 'WALK' &&
                       <div>
-                        <b>{moment(l.startTime).format("HH:mm")} </b> {' '}
-                        {l.from.name} &#10140; {l.to.name}
+                        {l.mode === 'BUS' && 
+                          <div>
+                            <img src={bus_icon} alt="BUS" style={{ verticalAlign: "sub" }}/> {' '}
+                            <font size="5.5" color="#007AC9">{l.route.shortName}</font>
+                          </div>
+                        }
+                        {l.mode === 'TRAM' && 
+                          <div>
+                            <img src={tram_icon} alt="TRAM" style={{ verticalAlign: "sub" }} /> {' '}
+                            <font size="5.5" color="#00985F">{l.route.shortName}</font>
+                          </div>
+                        }
+                        {l.mode === 'SUBWAY' && <img src={metro_icon} alt="METRO" />} {' '}
+                        <div style={{ marginTop: 8, marginBottom: 15 }}>
+                          <b>{moment(l.startTime).format("HH:mm")} </b> {' '}
+                          {l.from.name} &#10140; {l.to.name}
+                        </div>
                       </div>
-                    </div>
-                  }
-                </div>
-              )}
-            </div>
+                    }
+                  </div>
+                )}
+              </Grid>
+            </Grid>
           )}
         </div>
       )
@@ -122,13 +130,13 @@ function App() {
   return (
     <Grid container 
       direction="row"
-      justify="space-evenly"
+      justify="space-between"
       alignItems="flex-start"
       spacing={10}
     >
       <ApolloProvider client={client}>
         <Grid item md>
-          <Paper elevation={4} style={style.Paper}>
+          <Paper elevation={4} style={styles.Paper}>
             <h1>Kumpulan kampus &#10140; Eficode HQ</h1>
             <Plan
               from_lat={kumpula_coordinates.lat}
@@ -139,7 +147,7 @@ function App() {
           </Paper>
         </Grid>
         <Grid item md>
-          <Paper elevation={4} style={style.Paper}>
+          <Paper elevation={4} style={styles.Paper}>
             <h1>Eficode HQ &#10140; Kumpulan kampus</h1>
             <Plan
               from_lat={eficode_coordinates.lat}
