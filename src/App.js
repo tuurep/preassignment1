@@ -64,7 +64,6 @@ const styles = {
   Bordered: {
     border: 'solid',
     borderColor: '#757575',
-    backgroundColor: '#eeeeee',
     padding: 10
   }
 }
