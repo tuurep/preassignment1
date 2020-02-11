@@ -12,7 +12,7 @@ Notes:
 * go to http://localhost:3000/
 
 **See app hosted on AWS Elastic Beanstalk:**
-* [tuurep-timetables.eu-north-1.elasticbeanstalk.com](tuurep-timetables.eu-north-1.elasticbeanstalk.com)
+* [http://tuurep-timetables.eu-north-1.elasticbeanstalk.com](http://tuurep-timetables.eu-north-1.elasticbeanstalk.com)
 
 **Docker Hub repository:**
 * https://hub.docker.com/r/tuurep/timetables
