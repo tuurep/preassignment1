@@ -11,8 +11,5 @@ Notes:
 * npm start
 * go to http://localhost:3000/
 
-**See app hosted on AWS Elastic Beanstalk:**
-* [http://tuurep-timetables.eu-north-1.elasticbeanstalk.com](http://tuurep-timetables.eu-north-1.elasticbeanstalk.com)
-
 **Docker Hub repository:**
 * https://hub.docker.com/r/tuurep/timetables
